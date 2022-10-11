@@ -56,6 +56,35 @@ print(tensor[0])
 print(tensor[:, 0])
 print(tensor[..., -1])
 
+# 텐서 합치기
+t1 = torch.cat([tensor, tensor, tensor], dim=1)
+print(t1)
+
+# 산술 연산
+## 두 텐서의 행렬 곱(matrix multiplication)을 계산
+y1 = tensor @ tensor.T
+y2 = tensor.matmul(tensor.T)
+y3 = torch.rand_like(y1)
+torch.matmul(tensor, tensor.T, out=y3) # matrix multiplication
+
+## 요소별 곱 (element-wise product)
+z1 = tensor * tensor
+z2 = tensor.mul(tensor)
+z3 = torch.rand_like(tensor)
+torch.mul(tensor, tensor, out=z3)
+
+## 교체 연산
+print(f"{tensor}")
+tensor.add_(5) # tensor를 5로 교체
+print(tensor)
 
 
+# numpy 변환: CPU 상의 텐서와 Numpy 배열은 메모리 공간을 공유하기 때문에 하나만 변경해도 다른 하나의 영향을 준다
+t = torch.ones(3)
+print(f"torch: {t}")
+n = t.numpy()
+print(f"numpy: {n}")
 
+t.add_(1) # t텐서를 1로 변경
+print(f"torch: {t}")
+print(f"numpy: {n}")
